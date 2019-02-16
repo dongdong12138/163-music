@@ -1,0 +1,66 @@
+* {margin: 0; padding: 0;}
+* {box-sizing: border-box;}
+*::before {box-sizing: border-box;}
+*::after {box-sizing: border-box;}
+ul, ol, li {list-style: none;}
+a {text-decoration: none; color: inherit;}
+body {
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* layout */
+.page {
+    display: flex;
+    height: 100vh;
+}
+.page > aside {
+    display: flex;
+    width: 200px;
+    border: 1px solid red;
+    flex-direction: column;
+}
+.page > main {
+    flex-grow: 1;
+    border: 1px solid black;
+}
+
+/* aside */
+.newSong {
+    text-align: center;
+    padding: 10px;
+}
+.newSong.active {
+    background: #d4d4d4;
+}
+.songList {
+    text-align: left;
+    border-top: 1px solid #999;
+    flex-grow: 1;
+}
+.songList > li {
+    width: 90%;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    margin: 0 auto;
+}
+.songList > li.active {
+    background: #d4d4d4;
+}
+.uploadArea {}
+.container {
+    border: 2px dashed #ddd;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 200px;
+    text-align: center;
+}
+.container > .pickfiles {
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
