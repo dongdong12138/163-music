@@ -5,28 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>管理页面</title>
-    <style>
-        * {margin: 0; padding: 0;}
-        #container {
-            padding: 50px 80px;
-            border: 2px dashed #ddd;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            width: 200px;
-        }
-    </style>
+    <link rel="stylesheet" href="./css/default.css">
+    
   </head>
   <body>
-      <audio src="http://pmyoxd8mg.bkt.clouddn.com/%E8%96%9B%E4%B9%8B%E8%B0%A6%20-%20%E5%8A%A8%E7%89%A9%E4%B8%96%E7%95%8C.mp3" controls></audio>
-      <audio src="http://pmyoxd8mg.bkt.clouddn.com/%E8%96%9B%E4%B9%8B%E8%B0%A6%20-%20%E6%88%91%E5%A5%BD%E5%83%8F%E5%9C%A8%E5%93%AA%E8%A7%81%E8%BF%87%E4%BD%A0.mp3" controls></audio>
-    <div id="container">
-        <span id="pickfiles">点击或拖曳文件</span>
-        <p>文件大小不能超过 40Mb </p>
+    <div class="page">
+        <aside>
+            <div class="newSong">新建歌曲</div>
+            <ul class="songList">
+                <li>歌曲1</li>
+                <li class="active">歌曲2</li>
+                <li>歌曲3</li>
+                <li>歌曲4</li>
+                <li>歌曲5</li>
+                <li>歌曲6</li>
+                <li>歌曲7</li>
+                <li>歌曲8</li>
+                <li>歌曲9</li>
+                <li>歌曲10</li>
+            </ul>
+            <div class="uploadArea">
+                <div id="container" class="container">
+                    <div id="pickfiles" class="pickfiles">
+                        <span>点击或拖曳文件</span>
+                        <p>文件大小不能超过 40Mb </p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <main>
+            <form action="" class="form">
+                <div class="row">
+                    <label>
+                        歌名：<input type="text">
+                    </label>
+                </div>
+                <div class="row">
+                    <label>
+                        歌手：<input type="text">
+                    </label>
+                </div>
+                <div class="row">
+                    <label>
+                        外链：<input type="text">
+                    </label>
+                </div>
+                <div class="row">
+                    <button type="submit">保存</button>
+                </div>
+            </form>
+        </main>
     </div>
-    <div id="uploadStatus"></div>
+
+
+    
+    <!-- <div id="uploadStatus"></div> -->
 
     <script src="../vendors/moxie.js"></script>
     <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
@@ -103,6 +136,7 @@
             var domain = up.getOption('domain');
             var response = JSON.parse(info.response);
             var sourceLink = 'http://' + domain +"/"+ encodeURIComponent(response.key); // 获取上传成功后的文件的Url
+            uploadStatus.textContent = sourceLink + ' ' + response.key
             console.log(sourceLink)
           },
           Error: function(up, err, errTip) {
