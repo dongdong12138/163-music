@@ -4,6 +4,7 @@
 *::after {box-sizing: border-box;}
 ul, ol, li {list-style: none;}
 a {text-decoration: none; color: inherit;}
+input {font: inherit;}
 body {
     font-size: 12px;
     line-height: 1.5;
@@ -17,12 +18,12 @@ body {
 .page > aside {
     display: flex;
     width: 200px;
-    border: 1px solid red;
     flex-direction: column;
 }
 .page > main {
     flex-grow: 1;
-    border: 1px solid black;
+    background: #d4d4d4;
+    padding-left: 20px;
 }
 
 /* aside */
@@ -64,3 +65,45 @@ body {
     height: 100%;
     cursor: pointer;
 }
+
+/* main */
+.form {
+    font-size: 14px;
+}
+.form > .row {
+    margin: 10px 0;
+}
+.form > .row > label {
+    display: inline-block;
+    width: 5em;
+    text-align: right;
+}
+.form > .row.actions {
+    margin-left: calc(5em + 5px);
+}
+.form input[type=text],
+.form input[type=submit],
+.form button {
+    height: 30px;
+    padding: 0 10px 0;
+    border-radius: 5px;
+}
+.form input[type=text] {
+    padding: 3px 8px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    outline: none;
+    height: 30px;
+}
+.form button {
+    border: none;
+    cursor: pointer;
+    background: #bbb;
+}
+.form button:hover {
+    background: #888;
+}
+.page > main {
+    padding-top: 20px;
+}
+.page > main > .form {}
