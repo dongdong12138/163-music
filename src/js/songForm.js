@@ -55,7 +55,7 @@
       return song.save().then(
         newSong => {
             let {id, attributes} = newSong
-            Object.assign(this.data, {id, ...attributes})
+            this.data = {id, ...attributes}
         },
         error => {
           console.error(error);
@@ -71,7 +71,8 @@
       this.view.render(this.model.data);
       this.bindEvents();
       window.eventHub.on("upload", data => {
-        this.view.render(data);
+        this.model.data = data
+        this.view.render(this.model.data)
       });
     },
     bindEvents() {
