@@ -9,7 +9,7 @@
       let $el = $(this.el);
       $el.html(this.template);
       let { songs } = data;
-      let liList = songs.map(song => $("<li></li>").text(song.name));
+      let liList = songs.map(song => $("<li></li>").text(song.name).attr('data-song-id', song.id));
       $el.find("ul").empty();
       liList.map(domLi => {
         $el.find("ul").append(domLi);
@@ -66,6 +66,17 @@
     bindEvents() {
         $(this.view.el).on('click', 'li', (e) => {
             this.view.activeItem(e.currentTarget)
+            let songId = e.currentTarget.getAttribute('data-song-id')
+            let data
+            let songs = this.model.data.songs
+            for (let i = 0; i < songs.length; i ++) {
+                if (songs[i].id === songId) {
+                    data = songs[i]
+                    break
+                }
+            }
+            console.log(data)
+            window.eventHub.emit('select', JSON.parse(JSON.stringify(data)))
         })
     }
   };
