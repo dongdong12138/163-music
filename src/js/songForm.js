@@ -5,7 +5,6 @@
       this.$el = $(this.el);
     },
     template: `
-            <h1>新建歌曲</h1>
             <form action="" class="form">
                 <div class="row">
                     <label>歌名：</label>
@@ -25,15 +24,20 @@
             </form>
         `,
     render(data = {}) {
-      let placeholders = ['name', 'url', 'singer', 'id'];
+      let placeholders = ["name", "url", "singer", "id"];
       let html = this.template;
       placeholders.map(string => {
         html = html.replace(`__${string}__`, data[string] || "");
       });
       $(this.el).html(html);
+      if (data.id) {
+        $(this.el).prepend("<h1>编辑歌曲</h1>");
+      } else {
+        $(this.el).prepend("<h1>新建歌曲</h1>");
+      }
     },
     reset() {
-        this.render({})
+      this.render({});
     }
   };
   let model = {
@@ -54,8 +58,8 @@
       song.set("url", data.url);
       return song.save().then(
         newSong => {
-            let {id, attributes} = newSong
-            this.data = {id, ...attributes}
+          let { id, attributes } = newSong;
+          this.data = { id, ...attributes };
         },
         error => {
           console.error(error);
@@ -71,11 +75,17 @@
       this.view.render(this.model.data);
       this.bindEvents();
       window.eventHub.on("upload", data => {
-        this.model.data = data
-        this.view.render(this.model.data)
+        this.model.data = data;
+        this.view.render(this.model.data);
       })
-      window.eventHub.on('select', (data) => {
-          this.model.data = data
+      window.eventHub.on("select", data => {
+        this.model.data = data;
+        this.view.render(this.model.data);
+      })
+      window.eventHub.on('new', () => {
+          this.model.data = {
+              name: '', url: '', id: '', singer: ''
+          }
           this.view.render(this.model.data)
       })
     },
@@ -87,11 +97,10 @@
         needs.map(string => {
           data[string] = this.view.$el.find(`[name="${string}"]`).val();
         });
-        this.model.create(data)
-            .then(() => {
-                this.view.reset()
-                window.eventHub.emit('create', this.model.data)
-            })
+        this.model.create(data).then(() => {
+          this.view.reset();
+          window.eventHub.emit("create", this.model.data);
+        });
       });
     }
   };
